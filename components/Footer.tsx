@@ -138,7 +138,7 @@ const Footer: React.FC<FooterProps> = ({ language }) => {
             {isHebrew ? '© 2026 סטודיו Lisette' : '© 2026 Lisette Studio'}
           </span>
           <div className="flex items-center gap-2 text-[10px] uppercase tracking-widest text-gray-500">
-            <span>{isHebrew ? 'עוצב על ידי RD' : 'Built by RD'}</span>
+            <span>{isHebrew ? 'נבנה ע״י RD' : 'Built by RD'}</span>
             <a 
               href="https://ron-site.vercel.app" 
               target="_blank" 
