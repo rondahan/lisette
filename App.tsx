@@ -6,7 +6,7 @@ import Footer from './components/Footer';
 import type { Language } from './types';
 
 function App() {
-  const [language, setLanguage] = useState<Language>('he');
+  const [language, setLanguage] = useState<Language>('en');
   const isHebrew = language === 'he';
 
   return (
