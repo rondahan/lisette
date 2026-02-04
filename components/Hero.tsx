@@ -13,7 +13,7 @@ const Hero: React.FC<HeroProps> = ({ language }) => {
     <section className="relative h-screen w-full overflow-hidden">
       <div className="absolute inset-0">
         <img 
-          src="https://images.unsplash.com/photo-1537832816519-689ad163238b?auto=format&fit=crop&q=80&w=2000" 
+          src="https://images.unsplash.com/photo-1537832816519-689ad163238b?auto=format&fit=crop&q=75&w=1400" 
           alt={isHebrew ? 'ליזט קמפיין אופנה' : 'Lisette Editorial'} 
           className="w-full h-full object-cover scale-105"
         />

@@ -3,16 +3,60 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import CollectionGrid from './components/CollectionGrid';
 import Footer from './components/Footer';
+import { NAV_ITEMS, NAV_ITEMS_HE } from './constants';
 import type { Language } from './types';
 
 function App() {
   const [language, setLanguage] = useState<Language>('en');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const isHebrew = language === 'he';
+  const navItems = isHebrew ? NAV_ITEMS_HE : NAV_ITEMS;
 
   return (
     <div className="min-h-screen bg-[#fafafa]" dir={isHebrew ? 'rtl' : 'ltr'}>
-      <Navbar language={language} onLanguageChange={setLanguage} />
-      <main>
+      <Navbar
+        language={language}
+        onLanguageChange={setLanguage}
+        isMobileMenuOpen={isMobileMenuOpen}
+        setIsMobileMenuOpen={setIsMobileMenuOpen}
+      />
+
+      {/* Mobile full-screen menu */}
+      {isMobileMenuOpen && (
+        <div className="fixed inset-0 z-40 bg-white md:hidden flex flex-col justify-between px-8 pt-24 pb-10">
+          <div className="space-y-6">
+            {navItems.map((item) => (
+              <a
+                key={item.label}
+                href={item.href}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="block text-xl tracking-[0.25em] serif"
+              >
+                {item.label}
+              </a>
+            ))}
+          </div>
+          <div className="flex justify-start text-[10px] tracking-[0.25em]">
+            <button
+              type="button"
+              onClick={() => setLanguage('en')}
+              className={`hover:opacity-60 transition-opacity ${language === 'en' ? 'font-semibold' : 'opacity-50'}`}
+            >
+              EN
+            </button>
+            <span className="mx-2 opacity-40">/</span>
+            <button
+              type="button"
+              onClick={() => setLanguage('he')}
+              className={`hover:opacity-60 transition-opacity ${language === 'he' ? 'font-semibold' : 'opacity-50'}`}
+            >
+              HE
+            </button>
+          </div>
+        </div>
+      )}
+
+      <main className={isMobileMenuOpen ? 'hidden md:block' : ''}>
         <Hero language={language} />
         
         {/* Intro Section */}
@@ -37,9 +81,10 @@ function App() {
         {/* Mid-page Banner */}
         <section className="h-[70vh] w-full relative">
           <img 
-            src="https://images.unsplash.com/photo-1445205170230-053b830c6050?auto=format&fit=crop&q=80&w=2000" 
+            src="https://images.unsplash.com/photo-1445205170230-053b830c6050?auto=format&fit=crop&q=75&w=1400" 
             className="w-full h-full object-cover" 
             alt={isHebrew ? 'אטלייה Lisette' : 'Atelier'}
+            loading="lazy"
           />
           <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
             <h3 className="text-white text-3xl md:text-5xl serif text-center px-6">
@@ -57,7 +102,9 @@ function App() {
         </section>
 
       </main>
-      <Footer language={language} />
+      <div className={isMobileMenuOpen ? 'hidden md:block' : ''}>
+        <Footer language={language} />
+      </div>
     </div>
   );
 }

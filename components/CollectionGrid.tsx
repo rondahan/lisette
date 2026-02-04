@@ -30,13 +30,14 @@ const CollectionGrid: React.FC<CollectionGridProps> = ({ language }) => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-x-4 md:gap-x-8 gap-y-10 md:gap-y-16">
           {products.map((product) => (
             <div key={product.id} className="group cursor-pointer">
               <div className="overflow-hidden aspect-[3/4] mb-6">
                 <img 
                   src={product.imageUrl} 
                   alt={product.name} 
+                  loading="lazy"
                   className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                 />
               </div>

@@ -1,15 +1,21 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import { NAV_ITEMS, NAV_ITEMS_HE } from '../constants';
 import type { Language } from '../types';
 
 interface NavbarProps {
   language: Language;
   onLanguageChange: (language: Language) => void;
+  isMobileMenuOpen: boolean;
+  setIsMobileMenuOpen: (open: boolean) => void;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ language, onLanguageChange }) => {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+const Navbar: React.FC<NavbarProps> = ({
+  language,
+  onLanguageChange,
+  isMobileMenuOpen,
+  setIsMobileMenuOpen,
+}) => {
   const navItems = language === 'he' ? NAV_ITEMS_HE : NAV_ITEMS;
 
   const LangToggle = () => (
@@ -75,23 +81,6 @@ const Navbar: React.FC<NavbarProps> = ({ language, onLanguageChange }) => {
         <div className={`w-6 h-[1px] bg-black transition-opacity ${isMobileMenuOpen ? 'opacity-0' : ''}`} />
         <div className={`w-6 h-[1px] bg-black transition-transform duration-300 ${isMobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
       </button>
-
-      {/* Mobile Overlay */}
-      <div className={`fixed inset-0 bg-white z-40 transition-transform duration-700 ease-in-out transform ${
-        isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
-      } flex flex-col items-center justify-center gap-8`}>
-        {navItems.map((item) => (
-          <a 
-            key={item.label} 
-            href={item.href} 
-            onClick={() => setIsMobileMenuOpen(false)}
-            className="text-2xl uppercase tracking-[0.3em] serif"
-          >
-            {item.label}
-          </a>
-        ))}
-        <LangToggle />
-      </div>
     </nav>
   );
 };
